@@ -25,3 +25,20 @@ const game = document.querySelector('game'),
 // Assign UI min and max
 minNum.textContent = min;
 maxNum.textContent = max;
+
+// Listener for guess button
+guessBtn.addEventListener('click', function(){
+    //we want to number to be a number and no string so we have to parse it, we make a var guess and use the parseInt js function to make it a number
+    let guess = parseInt(guessInput.value);
+
+    //Validate our input
+    //Because we parseInt above it will say NaN when there is no number entered, we also want when there is a number entered below the min or above the max we get an error, so we say, if guess is NaN or guess is less then the min number or guess is more then the max number then execute the setMessage function
+    if(isNaN(guess) || guess < min || guess > max){
+        setMessage(`Please enter a number between ${min} and ${max}`);
+    }
+});
+
+// SetMessage function
+function setMessage(msg){
+    message.textContent = msg;
+}

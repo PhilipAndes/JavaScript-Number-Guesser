@@ -34,11 +34,25 @@ guessBtn.addEventListener('click', function(){
     //Validate our input
     //Because we parseInt above it will say NaN when there is no number entered, we also want when there is a number entered below the min or above the max we get an error, so we say, if guess is NaN or guess is less then the min number or guess is more then the max number then execute the setMessage function
     if(isNaN(guess) || guess < min || guess > max){
-        setMessage(`Please enter a number between ${min} and ${max}`);
+        setMessage(`Please enter a number between ${min} and ${max}`, 'red');
+    }
+
+    // Check if it is the winning number
+    if(guess === winningNum){
+        // Disable input if correct
+        guessInput.disabled === true;
+        // Change the border to green if correct
+        guessInput.style.borderColor = 'green';
+        // Set Message if correct
+        setMessage(`${winningNum} is correct, YOU WIN!`, 'green');
+    } else {
+
     }
 });
 
 // SetMessage function
-function setMessage(msg){
+function setMessage(msg, color){
+    //We want the text to be red when it is an error or green when it's good, so we set another parameter above in the function named color and set it in the message above to red. 
+    message.style.color = color;
     message.textContent = msg;
 }

@@ -15,7 +15,7 @@ let min = 1,
     guessesLeft = 3;
 
 // UI Elements
-const game = document.querySelector('game'),
+const game = document.querySelector('#game'),
     minNum = document.querySelector('.min-num'),
     maxNum = document.querySelector('.max-num'),
     guessBtn = document.querySelector('#guess-btn'),
@@ -25,6 +25,15 @@ const game = document.querySelector('game'),
 // Assign UI min and max
 minNum.textContent = min;
 maxNum.textContent = max;
+
+// Play again event listener
+game.addEventListener('mousedown', function(e){
+    //we only have to target the right element with the class name play-again
+    if(e.target.className === 'play-again'){
+        //reload the page
+        window.location.reload();
+    }
+});
 
 // Listener for guess button
 guessBtn.addEventListener('click', function(){
@@ -80,19 +89,11 @@ guessBtn.addEventListener('click', function(){
     }
 });
 
-// SetMessage function
-function setMessage(msg, color){
-    //We want the text to be red when it is an error or green when it's good, so we set another parameter above in the function named color and set it in the message above to red. 
-    message.style.color = color;
-    message.textContent = msg;
-}
-
 // Game Over
 function gameOver(won, msg){
     let color;
     //So we say if won is equal to true then the color is green else the color is red:
     won === true ? color = 'green' : color = 'red';
-
 
     // Disable input
     guessInput.disabled === true;
@@ -102,4 +103,17 @@ function gameOver(won, msg){
     message.style.color = color;
     // Set Message if correct
     setMessage(msg);
+
+    // Change the submit button to Play Again
+    guessBtn.value = 'Play Again';
+    //Here we append a new class to the button when it is game over, as we change this after the page is loaded we have to add a listener to the parent
+    guessBtn.className += 'play-again';
 }
+
+// Set Message 
+function setMessage(msg, color){
+    //We want the text to be red when it is an error or green when it's good, so we set another parameter above in the function named color and set it in the message above to red. 
+    message.style.color = color;
+    message.textContent = msg;
+}
+

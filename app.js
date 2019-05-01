@@ -11,7 +11,8 @@ GAME FUNCTION:
 //We first write down all the vars, this time we going to define them different, you don't need to write a semicolon everytime but instead you can use a comma
 let min = 1,
     max = 10,
-    winningNum = 2,
+    //the winning number have to be random so we set winningNum to a function called getRandomNum with the parameters min and max
+    winningNum = getRandomNum(min, max),
     guessesLeft = 3;
 
 // UI Elements
@@ -108,6 +109,12 @@ function gameOver(won, msg){
     guessBtn.value = 'Play Again';
     //Here we append a new class to the button when it is game over, as we change this after the page is loaded we have to add a listener to the parent
     guessBtn.className += 'play-again';
+}
+
+// Get Random number
+function getRandomNum(){
+    //generate a random num between the min and max
+    return Math.floor(Math.random()*(max-min+1)+min);
 }
 
 // Set Message 

@@ -38,6 +38,7 @@ game.addEventListener('mousedown', function(e){
 
 // Listener for guess button
 guessBtn.addEventListener('click', function(){
+    
     //we want to number to be a number and no string so we have to parse it, we make a var guess and use the parseInt js function to make it a number
     let guess = parseInt(guessInput.value);
 
@@ -45,10 +46,8 @@ guessBtn.addEventListener('click', function(){
     //Because we parseInt above it will say NaN when there is no number entered, we also want when there is a number entered below the min or above the max we get an error, so we say, if guess is NaN or guess is less then the min number or guess is more then the max number then execute the setMessage function
     if(isNaN(guess) || guess < min || guess > max){
         setMessage(`Please enter a number between ${min} and ${max}`, 'red');
-    }
-
-    // Check if it is the winning number
-    if(guess === winningNum){
+    }// Check if it is the winning number
+    else if(guess === winningNum){
         // Game over - won
 
         // // Disable input if correct, commented everything below out because its better to write a function for this as we did on the bottom (gameOver function) to make the code look cleaner
@@ -58,15 +57,10 @@ guessBtn.addEventListener('click', function(){
         // // Set Message if correct
         // setMessage(`${winningNum} is correct, YOU WIN!`, 'green');
         gameOver(true, `${winningNum} is correct, YOU WIN!`);
-
-    } else {
-        // Wrong number 
-        guessesLeft -= 1;
-
-        //Then we want to check if there are any guesses left, so we say if guessesLeft equals zero it means they lost
-        if(guessesLeft === 0){
+    } //Then we want to check if there are any guesses left, so we say else if guessesLeft equals zero it means they lost
+        else if(guessesLeft === 1){
             //Game over - lost
-
+            
             // Disable input if game over, same as above, I have commented everything out as we can write the code much cleaner with the gameOver function:
             // guessInput.disabled === true;
             // // Change the border to red if game over
@@ -78,6 +72,8 @@ guessBtn.addEventListener('click', function(){
         } else {
             // Game continues - answer wrong
 
+            guessesLeft -= 1;
+
             // Change the border to red if wrong answer
             guessInput.style.borderColor = 'red';
 
@@ -87,7 +83,6 @@ guessBtn.addEventListener('click', function(){
             // Tell user its the wrong number
             setMessage(`${guess} is not correct, ${guessesLeft} guesses left`, 'red');
         }
-    }
 });
 
 // Game Over
